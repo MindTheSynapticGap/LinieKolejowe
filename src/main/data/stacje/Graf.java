@@ -13,24 +13,22 @@ public class Graf {
 
         // dodawanie tras do grafu
         trasy.forEach(trasa -> listaTras.get(trasa.getStacjaPoczatkowa().getWartosc()).add(new Stacja(trasa.getStacjaKoncowa().getWartosc(), trasa.getOdleglosc())));
-
-
     }
 
-    public static void printGraph(Graf graf)  {
-        int src_vertex = 0;
-        int list_size = graf.listaTras.size();
+    public static void wydrukujGraf(Graf graf)  {
+        int indexStacji = 0;
 
         System.out.println("Zawartosc grafu:");
-        while (src_vertex < list_size) {
-            //traverse through the adjacency list and print the edges
-            for (Stacja edge : graf.listaTras.get(src_vertex)) {
-                System.out.print("Trasa: " + src_vertex + " ==> " + edge.getWartosc() +
-                        " (" + edge.getOdlegloscOdNastepnejStacji() + ")\t");
+        while (indexStacji < graf.listaTras.size()) {
+            //przejrzyl liste przylegania i wydrukuj trasy
+            for (Stacja stacja : graf.listaTras.get(indexStacji)) {
+                System.out.print("Trasa: " + indexStacji + " ==> " + stacja.getWartosc() +
+                        " (" + stacja.getOdlegloscOdNastepnejStacji() + ")\t");
             }
 
             System.out.println();
-            src_vertex++;
+            indexStacji++;
         }
     }
+
 }
