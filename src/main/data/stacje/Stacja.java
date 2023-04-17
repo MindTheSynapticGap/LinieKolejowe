@@ -4,7 +4,7 @@ public class Stacja {
     private int wartosc;
     private int odlegloscOdNastepnejStacji;
 
-    Stacja(int value, int weight) {
+    public Stacja(int value, int weight) {
         this.wartosc = value;
         this.odlegloscOdNastepnejStacji = weight;
     }
