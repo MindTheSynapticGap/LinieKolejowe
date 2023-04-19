@@ -13,7 +13,7 @@ public class Lokomotywa {
     private Stacja stacjaZrodlowa;
     private Stacja stacjaDolecowa;
     private final UUID numerIdentyfikacyjny;
-    private int poczatkowaPredkosc;
+    private final int poczatkowaPredkosc;
 
     public Lokomotywa(int maxLiczbaWagonow, int maxUciagLadunku, int maxLiczbaWagonowWSieciElektrycznej, String nazwa, Stacja stacjaMacierzysta, Stacja stacjaZrodlowa, Stacja stacjaDolecowa, int predkosc) {
         this.maxLiczbaWagonow = maxLiczbaWagonow;

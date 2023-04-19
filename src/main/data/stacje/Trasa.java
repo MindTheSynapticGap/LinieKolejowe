@@ -2,28 +2,47 @@ package main.data.stacje;
 
 import main.wątki.KalkulatorTrasy;
 
+import java.util.Objects;
+
 public class Trasa {
-    private final Stacja stacjaPoczatkowa;
-    private final Stacja stacjaKoncowa;
+    private final Stacja stacjaPierwsza;
+    private final Stacja stacjaDruga ;
     private final int odleglosc;
     private final KalkulatorTrasy kalkulatorTrasy;
 
     public Trasa(Stacja src, Stacja dest, int weight) {
-        this.stacjaPoczatkowa = src;
-        this.stacjaKoncowa = dest;
+        this.stacjaPierwsza = src;
+        this.stacjaDruga = dest;
         this.odleglosc = weight;
         this.kalkulatorTrasy = new KalkulatorTrasy(this);
     }
 
-    public Stacja getStacjaPoczatkowa() {
-        return stacjaPoczatkowa;
+    public Stacja getStacjaPierwsza() {
+        return stacjaPierwsza;
     }
 
-    public Stacja getStacjaKoncowa() {
-        return stacjaKoncowa;
+    public Stacja getStacjaDruga() {
+        return stacjaDruga;
     }
 
     public int getOdleglosc() {
         return odleglosc;
+    }
+
+    public KalkulatorTrasy getKalkulatorTrasy() {
+        return kalkulatorTrasy;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trasa trasa = (Trasa) o;
+        return odleglosc == trasa.odleglosc && Objects.equals(stacjaPierwsza, trasa.stacjaPierwsza) && Objects.equals(stacjaDruga, trasa.stacjaDruga);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stacjaPierwsza, stacjaDruga, odleglosc);
     }
 }

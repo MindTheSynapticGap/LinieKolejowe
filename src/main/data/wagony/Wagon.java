@@ -11,7 +11,7 @@ public abstract class Wagon {
     private String nadawca;
     private String zabezpieczenia;
 
-    public Wagon(UUID numerIdentyfikacyjny, int wagaNetto, int wagaBrutto, int liczbaMiejscSiedzacych, String nadawca, String zabezpieczenia) {
+    public Wagon(int wagaNetto, int wagaBrutto, int liczbaMiejscSiedzacych, String nadawca, String zabezpieczenia) {
         this.numerIdentyfikacyjny = UUID.randomUUID();
         this.wagaNetto = wagaNetto;
         this.wagaBrutto = wagaBrutto;

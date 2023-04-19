@@ -25,9 +25,8 @@ public class KalkulatorPredkosci extends Thread {
                     skladPociagu.setPredkosc(Math.floor(skladPociagu.getPredkosc() * 0.97));
                 }
                 System.out.println("Predkosc pociagu: " + skladPociagu.getPredkosc());
-                if (skladPociagu.getPredkosc() > 100) {
+                if (skladPociagu.getPredkosc() > 200) {
                     throw new RailroadHazard(skladPociagu.getLokomotywa(), skladPociagu.getWagony());
-
                 }
             } catch (RailroadHazard e) {
                 e.printMessage();

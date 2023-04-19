@@ -21,9 +21,10 @@ public class KalkulatorTrasy extends Thread {
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             try {
+                double predkosc = skladPociagu.getPredkosc();
                 TimeUnit.SECONDS.sleep(1);
-                przebytaTrasa += skladPociagu.getPredkosc()/3600;
-                System.out.println("Obecna predkosc pociagu: " + skladPociagu.getPredkosc());
+                przebytaTrasa += predkosc/3600;
+                System.out.println("Obecna predkosc pociagu: " + predkosc);
                 System.out.println("Procent przebytej trasy: " + przebytaTrasa/trasa.getOdleglosc());
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
