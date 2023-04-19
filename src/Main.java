@@ -14,9 +14,10 @@ public class Main {
         Util.przygotujGraf();
 
         Lokomotywa lokomotywa = new Lokomotywa(2, 2, 2, "dupa", null, null, null, 100);
-        SkladPociagu skladPociagu = new SkladPociagu(lokomotywa, null, 100);
+        SkladPociagu skladPociagu = new SkladPociagu(lokomotywa, null);
         KalkulatorPredkosci kalkulatorPredkosci = new KalkulatorPredkosci(skladPociagu);
 
+        Util.przygotujSklady();
         //KalkulatorTrasy kalkulatorTrasy = new KalkulatorTrasy(trasy.get(0));
        // kalkulatorTrasy.setSkladPociagu(skladPociagu);
 

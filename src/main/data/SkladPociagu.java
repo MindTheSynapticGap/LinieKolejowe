@@ -17,12 +17,12 @@ public class SkladPociagu {
     private final KalkulatorPredkosci kalkulatorPredkosci;
     private final WyszukiwarkaTrasy wyszukiwarkaTrasy;
 
-    public SkladPociagu(Lokomotywa lokomotywa, List<Wagon> wagony, double predkosc) {
+    public SkladPociagu(Lokomotywa lokomotywa, List<Wagon> wagony) {
         this.lokomotywa = lokomotywa;
         this.wagony = wagony;
-        this.predkosc = predkosc;
+        this.predkosc = lokomotywa.getPoczatkowaPredkosc();
         this.kalkulatorPredkosci = new KalkulatorPredkosci(this);
-        this.wyszukiwarkaTrasy = new WyszukiwarkaTrasy();
+        this.wyszukiwarkaTrasy = new WyszukiwarkaTrasy(this);
     }
 
     public Lokomotywa getLokomotywa() {
