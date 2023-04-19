@@ -1,34 +1,93 @@
 package main.data.stacje;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
+import java.util.*;
 
-public class Graf {
-    private final List<List<Stacja>> listaTras = new ArrayList<>();
+public final class Graf {
+    private static Graf INSTANCJA;
+    private final Map<Stacja, LinkedList<Stacja>> mapaPrzylegania = new TreeMap<>();
 
-    public Graf(List<Trasa> trasy) {
-        // alokacja pamieci do listy przylegania
-        IntStream.range(0, trasy.size()).forEach(i -> listaTras.add(i, new ArrayList<>()));
+    public static Graf getInstance() {
+        if (INSTANCJA == null) {
+            INSTANCJA = new Graf();
+        }
 
-        // dodawanie tras do grafu
-        trasy.forEach(trasa -> listaTras.get(trasa.getStacjaPoczatkowa().getWartosc()).add(new Stacja(trasa.getStacjaKoncowa().getWartosc(), trasa.getOdleglosc())));
+        return INSTANCJA;
     }
 
-    public static void wydrukujGraf(Graf graf)  {
-        int indexStacji = 0;
+    private Graf() {}
 
-        System.out.println("Zawartosc grafu:");
-        while (indexStacji < graf.listaTras.size()) {
-            //przejrzyl liste przylegania i wydrukuj trasy
-            for (Stacja stacja : graf.listaTras.get(indexStacji)) {
-                System.out.print("Trasa: " + indexStacji + " ==> " + stacja.getWartosc() +
-                        " (" + stacja.getOdlegloscOdNastepnejStacji() + ")\t");
+    public void helperDodawaniaKrawedzi(Stacja a, Stacja b) {
+        LinkedList<Stacja> tmp = mapaPrzylegania.get(a);
+
+        if (tmp != null) {
+            tmp.remove(b);
+        } else tmp = new LinkedList<>();
+        tmp.add(b);
+        mapaPrzylegania.put(a, tmp);
+    }
+
+    public void dodajKrawedz(Stacja source, Stacja destination) {
+        // We make sure that every used node shows up in our .keySet()
+        if (!mapaPrzylegania.containsKey(source)) {
+            mapaPrzylegania.put(source, null);
+        }
+
+        if (!mapaPrzylegania.containsKey(destination)) {
+            mapaPrzylegania.put(destination, null);
+        }
+
+        helperDodawaniaKrawedzi(source, destination);
+        helperDodawaniaKrawedzi(destination, source);
+    }
+
+    public void wydrukujKrawedzie() {
+        for (Stacja node : mapaPrzylegania.keySet()) {
+            System.out.print("Stacja " + node.getWartosc() + " ma polaczenie ze stacjami: ");
+            for (Stacja neighbor : mapaPrzylegania.get(node)) {
+                System.out.print(neighbor.getWartosc() + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public boolean hasEdge(Stacja source, Stacja destination) {
+        return mapaPrzylegania.containsKey(source) && mapaPrzylegania.get(source).contains(destination);
+    }
+
+    public void resetNodesVisited() {
+        for (Stacja node : mapaPrzylegania.keySet()) {
+            node.unvisit();
+        }
+    }
+
+    public List<Stacja> znajdzDrogeMiedzyStacjami(Stacja stacjaPoczatkowa, Stacja stacjaKoncowa, ArrayList<Stacja> stacjeNaTrasie) {
+        stacjaPoczatkowa.visit();
+
+        LinkedList<Stacja> sasiedziStacjiZrodlowej = mapaPrzylegania.get(stacjaPoczatkowa);
+
+        if (sasiedziStacjiZrodlowej.isEmpty()) {
+            stacjeNaTrasie = new ArrayList<>();
+            return stacjeNaTrasie;
+        }
+
+        for (Stacja sasiad : sasiedziStacjiZrodlowej) {
+            if (stacjeNaTrasie.contains(stacjaKoncowa)) {
+                break;
             }
 
-            System.out.println();
-            indexStacji++;
+            if (sasiad.equals(stacjaKoncowa)) {
+                stacjeNaTrasie.add(stacjaKoncowa);
+                System.out.println("ZNALEZIONO DROGĘ!");
+                break;
+            }
+
+            if (!sasiad.isVisited()) {
+                stacjeNaTrasie.add(sasiad);
+                znajdzDrogeMiedzyStacjami(sasiad, stacjaKoncowa, stacjeNaTrasie);
+            }
         }
+
+        return stacjeNaTrasie;
     }
 
 }

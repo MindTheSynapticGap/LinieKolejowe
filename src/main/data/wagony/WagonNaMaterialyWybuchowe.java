@@ -1,4 +1,9 @@
 package main.data.wagony;
 
-public class WagonNaMaterialyWybuchowe {
+import java.util.UUID;
+
+public class WagonNaMaterialyWybuchowe extends WagonTowarowyCiezki {
+    public WagonNaMaterialyWybuchowe(int wagaNetto, int wagaBrutto, int liczbaMiejscSiedzacych, String nadawca, String zabezpieczenia) {
+        super(wagaNetto, wagaBrutto, liczbaMiejscSiedzacych, nadawca, zabezpieczenia);
+    }
 }

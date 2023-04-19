@@ -13,7 +13,7 @@ public class Lokomotywa {
     private Stacja stacjaZrodlowa;
     private Stacja stacjaDolecowa;
     private final UUID numerIdentyfikacyjny;
-    private int predkosc;
+    private final int poczatkowaPredkosc;
 
     public Lokomotywa(int maxLiczbaWagonow, int maxUciagLadunku, int maxLiczbaWagonowWSieciElektrycznej, String nazwa, Stacja stacjaMacierzysta, Stacja stacjaZrodlowa, Stacja stacjaDolecowa, int predkosc) {
         this.maxLiczbaWagonow = maxLiczbaWagonow;
@@ -24,11 +24,11 @@ public class Lokomotywa {
         this.stacjaZrodlowa = stacjaZrodlowa;
         this.stacjaDolecowa = stacjaDolecowa;
         this.numerIdentyfikacyjny = UUID.randomUUID();
-        this.predkosc = predkosc;
+        this.poczatkowaPredkosc = predkosc;
     }
 
-    public int getPredkosc() {
-        return predkosc;
+    public int getPoczatkowaPredkosc() {
+        return poczatkowaPredkosc;
     }
 
     public int getMaxLiczbaWagonow() {
